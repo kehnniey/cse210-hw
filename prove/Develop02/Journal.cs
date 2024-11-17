@@ -2,19 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-
     public class Journal
     {
-        // Attribute: List to store journal entries
+        // A List to store my journal entries
         private List<Entry> _entries = new List<Entry>();
 
-        // Method: Add an entry to the journal
+        // Adding an entry to the journal
         public void AddEntry(Entry entry)
         {
             _entries.Add(entry);
         }
 
-        // Method: Display all entries in the journal
+        // Displaying all entries in the journal
         public void Display()
         {
             if (_entries.Count == 0)
@@ -30,30 +29,31 @@ using System.IO;
             }
         }
 
-        // Method: Save journal entries to a file
-        public void Save(string journal.txt)
+        // Saving journal entries to a file
+        public void Save(string filename)
         {
-            using (StreamWriter writer = new StreamWriter(journal.txt))
+            using (StreamWriter writer = new StreamWriter(filename))
             {
                 foreach (var entry in _entries)
                 {
-                    writer.WriteLine($"{entry._date}|{entry._prompt}|{entry._response}");
+                    // Use public properties to save data
+                    writer.WriteLine($"{entry.Date}|{entry.Prompt}|{entry.Response}");
                 }
             }
-            Console.WriteLine($"\nJournal saved to {journal.txt}.");
+            Console.WriteLine($"\nJournal saved to {filename}.");
         }
 
-        // Method: Load journal entries from a file
-        public void Load(string journal.txt)
+        // Loading journal entries from a file
+        public void Load(string filename)
         {
-            if (!File.Exists(journal.txt))
+            if (!File.Exists(filename))
             {
-                Console.WriteLine($"\nFile {journal.txt} not found.");
+                Console.WriteLine($"\nFile {filename} not found.");
                 return;
             }
 
             _entries.Clear();
-            using (StreamReader reader = new StreamReader(journal.txt))
+            using (StreamReader reader = new StreamReader(filename))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -61,11 +61,12 @@ using System.IO;
                     var parts = line.Split('|');
                     if (parts.Length == 3)
                     {
+                        // Create entry using data from file
                         _entries.Add(new Entry(parts[0], parts[1], parts[2]));
                     }
                 }
             }
-            Console.WriteLine($"\nJournal loaded from {journal.txt}.");
+            Console.WriteLine($"\nJournal loaded from {filename}.");
         }
     }
 

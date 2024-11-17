@@ -45,7 +45,7 @@ using System;
 
                     case "5":
                         isRunning = false;
-                        Console.WriteLine("\nGoodbye!");
+                        Console.WriteLine("\nGoodbye! See you later");
                         break;
 
                     default:
@@ -55,9 +55,10 @@ using System;
             }
         }
 
-        // Helper Method: Write a new journal entry
+        // Write a new journal entry
         private static void WriteNewEntry(Journal journal)
         {
+            // Use PromptGenerator to select a random prompt
             string prompt = PromptGenerator.SelectPrompt();
             Console.WriteLine($"\nPrompt: {prompt}");
             Console.Write("Your response: ");
@@ -70,6 +71,4 @@ using System;
             Console.WriteLine("\nNew entry added to the journal.");
         }
     }
-
-
 
