@@ -12,22 +12,31 @@ public class Scripture
         _reference = reference;
         _words = text.Split(' ').Select(word => new Word(word)).ToList();
     }
+public void HideRandomWords(int numberToHide)
+{
+    Random random = new Random();
+    int count = 0;
 
-    public void HideRandomWords(int numberToHide)
+    // Get a list of visible words
+    var visibleWords = _words.Where(word => !word.IsHidden()).ToList();
+
+    // Ensure the method doesn't try to hide more words than are visible
+    numberToHide = Math.Min(numberToHide, visibleWords.Count);
+
+    while (count < numberToHide)
     {
-        Random random = new Random();
-        int count = 0;
+        
+        int randomIndex = random.Next(visibleWords.Count);
 
-        while (count < numberToHide)
-        {
-            var wordToHide = _words[random.Next(_words.Count)];
-            if (!wordToHide.IsHidden())
-            {
-                wordToHide.Hide();
-                count++;
-            }
-        }
+       
+        visibleWords[randomIndex].Hide();
+        count++;
+
+        
+        visibleWords.RemoveAt(randomIndex);
     }
+}
+
 
     public string GetDisplayText()
     {
