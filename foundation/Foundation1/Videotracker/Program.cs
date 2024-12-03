@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 // Note: Comment out Program II(in Onlineorder folder) to run Program I
-
 // This program is for the Youtube Comment tracker
 
 // Program I
-
-
     class Program
     {
         static void Main(string[] args)
