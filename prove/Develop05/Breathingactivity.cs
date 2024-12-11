@@ -1,19 +1,18 @@
-public class BreathingActivity : MindfulnessActivity
+using System;
+
+public class BreathingActivity : Activity
 {
+    public BreathingActivity()
+        : base("Breathing", "This activity helps you relax by guiding your breathing slowly.") { }
+
     protected override void Run()
     {
-        for (int i = 0; i < duration / 4; i++) // Each cycle is 4 seconds
+        for (int i = 0; i < _duration / 4; i++)
         {
             Console.WriteLine("Breathe in...");
-            Pause(2);  // Pause for 2 seconds 
-
+            ShowCountDown(2);
             Console.WriteLine("Breathe out...");
-            Pause(2);  
+            ShowCountDown(2);
         }
-    }
-
-    protected override string GetActivityDescription()
-    {
-        return "helping you relax by guiding your breathing in and out slowly. Clear your mind and focus on your breathing.";
     }
 }

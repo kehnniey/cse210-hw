@@ -1,26 +1,33 @@
-public class ListingActivity : MindfulnessActivity
+using System;
+using System.Collections.Generic;
+
+public class ListingActivity : Activity
 {
-    private static readonly string[] prompts = {
+    private List<string> _prompts = new List<string>
+    {
         "Who are people that you appreciate?",
-        "What are personal strengths of yours?",
-        "Who are people that you have helped this week?"
+        "What are your personal strengths?",
+        "Who have you helped this week?"
     };
+
+    public ListingActivity()
+        : base("Listing", "This activity helps you reflect by listing positive aspects of your life.") { }
 
     protected override void Run()
     {
-        Random rand = new Random();
-        string selectedPrompt = prompts[rand.Next(prompts.Length)];
-        Console.WriteLine(selectedPrompt);
+        var random = new Random();
+        string prompt = _prompts[random.Next(_prompts.Count)];
+        Console.WriteLine(prompt);
 
         Console.WriteLine("Start listing your responses:");
-        Pause(5); // Countdown to begin
+        ShowCountDown(5);
 
         int count = 0;
-        DateTime endTime = DateTime.Now.AddSeconds(duration);
+        DateTime endTime = DateTime.Now.AddSeconds(_duration);
 
         while (DateTime.Now < endTime)
         {
-            Console.Write("Enter an item: ");
+            Console.Write("Enter a response: ");
             string response = Console.ReadLine();
             if (!string.IsNullOrEmpty(response))
             {
@@ -29,10 +36,5 @@ public class ListingActivity : MindfulnessActivity
         }
 
         Console.WriteLine($"You listed {count} items!");
-    }
-
-    protected override string GetActivityDescription()
-    {
-        return "reflecting on the good things in your life by listing as many positive items as you can.";
     }
 }

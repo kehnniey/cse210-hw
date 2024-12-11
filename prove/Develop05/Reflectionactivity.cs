@@ -1,33 +1,36 @@
-public class ReflectionActivity : MindfulnessActivity
+using System;
+
+public class ReflectingActivity : Activity
 {
-    private static readonly string[] prompts = {
+    private List<string> _prompts = new List<string>
+    {
         "Think of a time when you stood up for someone else.",
         "Think of a time when you did something really difficult.",
         "Think of a time when you helped someone in need."
     };
 
-    private static readonly string[] questions = {
+    private List<string> _questions = new List<string>
+    {
         "Why was this experience meaningful to you?",
         "How did you feel when it was complete?",
         "What did you learn about yourself?"
     };
 
+    public ReflectingActivity()
+        : base("Reflecting", "This activity helps you reflect on moments of strength and resilience.") { }
+
     protected override void Run()
     {
-        Random rand = new Random();
-        string selectedPrompt = prompts[rand.Next(prompts.Length)];
-        Console.WriteLine(selectedPrompt);
-        Pause(5);  // Pause before starting to reflect
+        var random = new Random();
+        string prompt = _prompts[random.Next(_prompts.Count)];
+        Console.WriteLine(prompt);
 
-        foreach (var question in questions)
+        ShowCountDown(5);
+
+        foreach (var question in _questions)
         {
             Console.WriteLine(question);
-            Pause(5);  // Pause for user to reflect and think
+            ShowCountDown(5);
         }
-    }
-
-    protected override string GetActivityDescription()
-    {
-        return "reflecting on times in your life when you have shown strength and resilience.";
     }
 }
